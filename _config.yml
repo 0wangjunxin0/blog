@@ -11,7 +11,7 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://record-livid.vercel.app
+url: https://blog-delta-two-84.vercel.app
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
