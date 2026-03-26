@@ -7,7 +7,7 @@ tags:
   - 博客
   - Hexo
   - 记录
-cover: https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover1.webp
+cover: https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&q=80
 ---
 
 经过一番折腾，博客终于搭好了！这里简单记录一下搭建过程和后续的写作计划。

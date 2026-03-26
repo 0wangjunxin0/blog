@@ -7,7 +7,7 @@ tags:
   - Git
   - 工具
   - 版本控制
-cover: https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover2.webp
+cover: https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=800&q=80
 ---
 
 Git 是日常开发中最重要的工具之一。这篇文章整理了工作中最常用的 Git 命令，方便随时查阅。

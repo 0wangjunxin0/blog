@@ -7,7 +7,7 @@ tags:
   - Docker
   - 容器化
   - DevOps
-cover: https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover4.webp
+cover: https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&q=80
 ---
 
 "在我机器上能跑啊"——这句话让多少团队抓狂。Docker 的出现就是为了彻底解决这个问题。

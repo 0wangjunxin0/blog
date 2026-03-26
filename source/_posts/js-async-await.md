@@ -7,7 +7,7 @@ tags:
   - JavaScript
   - 异步编程
   - Promise
-cover: https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover3.webp
+cover: https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&q=80
 ---
 
 JavaScript 的异步编程经历了从回调地狱到 Promise，再到 async/await 的演进。本文梳理这三种方式的差异和适用场景。
