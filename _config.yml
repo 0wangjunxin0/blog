@@ -2,11 +2,11 @@
 ## Docs: https://hexo.io/docs/configuration.html
 
 # Site
-title: 我的技术博客
+title: 王俊鑫的博客
 subtitle: 记录学习与思考
-description: 一个专注于技术分享的个人博客，涵盖编程、开发笔记、工具使用等内容。
+description: 一个专注于学习分享的个人博客。
 keywords: 技术博客, 编程, 开发笔记, 前端, 后端
-author: 博主
+author: 王俊鑫
 language: zh-CN
 timezone: Asia/Shanghai
 
