@@ -11,7 +11,7 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://your-blog.vercel.app
+url: https://record-livid.vercel.app
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
