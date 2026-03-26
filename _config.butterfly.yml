@@ -52,17 +52,12 @@ index:
 # 主页文章封面
 cover:
   # 是否显示文章封面
-  index_enable: true
-  aside_enable: true
-  archives_enable: true
+  index_enable: false
+  aside_enable: false
+  archives_enable: false
   # 封面显示位置 left/right/both
   position: both
   default_cover:
-    - https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover1.webp
-    - https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover2.webp
-    - https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover3.webp
-    - https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover4.webp
-    - https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/top_img/cover5.webp
 
 # 文章页配置
 post_config:
@@ -131,7 +126,7 @@ aside:
   card_author:
     enable: true
     description: 记录学习与思考
-    img: https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80
+    img: /img/avatar.svg
     button:
       enable: false
   card_announcement:
@@ -246,6 +241,11 @@ pwa:
 # CDN
 CDN:
   option:
+    # 使用国内 npmmirror CDN，避免 jsDelivr 被墙
+    # 格式: npm/{package}/{version}/file
+    main_css: https://registry.npmmirror.com/hexo-theme-butterfly/5.5.4/files/source/css/index.css
+    main: https://registry.npmmirror.com/hexo-theme-butterfly/5.5.4/files/source/js/main.js
+    utils: https://registry.npmmirror.com/hexo-theme-butterfly/5.5.4/files/source/js/utils.js
 
 # 注入
 inject:
