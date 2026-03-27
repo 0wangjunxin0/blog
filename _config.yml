@@ -11,8 +11,8 @@ language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-url: https://blog-delta-two-84.vercel.app
-root: /
+url: https://0wangjunxin0.github.io/blog
+root: /blog/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
