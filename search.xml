@@ -1,150 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>我的第一篇正式文章</title>
-      <link href="/blog/2026/03/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%AD%A3%E5%BC%8F%E6%96%87%E7%AB%A0/"/>
-      <url>/blog/2026/03/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%AD%A3%E5%BC%8F%E6%96%87%E7%AB%A0/</url>
-      
-        <content type="html"><![CDATA[<p>这是我的博客的第一篇正式文章。从这里开始，我会记录学习、工作和生活中的点滴。</p><span id="more"></span><h2 id="为什么开始写作？"><a href="#为什么开始写作？" class="headerlink" title="为什么开始写作？"></a>为什么开始写作？</h2><p>写作是一种思考的方式。通过文字，我可以：</p><ul><li><strong>整理思路</strong>：把零散的知识点串联起来</li><li><strong>加深理解</strong>：教会别人是最好的学习方式</li><li><strong>记录成长</strong>：回头看时，能看到自己的进步轨迹</li></ul><h2 id="会写什么内容？"><a href="#会写什么内容？" class="headerlink" title="会写什么内容？"></a>会写什么内容？</h2><p>这个博客是综合型的，内容不限于：</p><table><thead><tr><th>类型</th><th>示例</th></tr></thead><tbody><tr><td>技术笔记</td><td>编程语言、框架、工具使用</td></tr><tr><td>学习心得</td><td>读书笔记、课程总结</td></tr><tr><td>生活随笔</td><td>旅行、思考、日常记录</td></tr><tr><td>项目记录</td><td>开发过程中的问题和解决方案</td></tr></tbody></table><h2 id="写作计划"><a href="#写作计划" class="headerlink" title="写作计划"></a>写作计划</h2><ol><li>每周至少更新一篇文章</li><li>保持简洁清晰的表达</li><li>注重实用性，解决实际问题</li></ol><hr><blockquote><p>千里之行，始于足下。</p></blockquote><p>感谢你的阅读，期待在文字中与你相遇。</p>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Docker 入门：用容器化思维开发应用</title>
+    <url>/blog/2026/03/10/docker-intro/</url>
+    <content><![CDATA[<p>“在我机器上能跑啊”——这句话让多少团队抓狂。Docker 的出现就是为了彻底解决这个问题。</p>
+<span id="more"></span>
+
+<h2 id="Docker-是什么？"><a href="#Docker-是什么？" class="headerlink" title="Docker 是什么？"></a>Docker 是什么？</h2><p>Docker 是一个容器化平台，它将应用及其所有依赖打包成一个<strong>镜像（Image）</strong>，然后在任何地方以<strong>容器（Container）</strong>的形式运行，保证环境完全一致。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">你的代码 + 运行环境 + 依赖 = Docker 镜像</span><br><span class="line">镜像运行起来 = 容器</span><br></pre></td></tr></table></figure>
+
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Image</strong></td>
+<td>只读模板，包含运行应用所需的一切</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>Image 的运行实例</td>
+</tr>
+<tr>
+<td><strong>Dockerfile</strong></td>
+<td>构建 Image 的脚本</td>
+</tr>
+<tr>
+<td><strong>Registry</strong></td>
+<td>存储 Image 的仓库（如 Docker Hub）</td>
+</tr>
+</tbody></table>
+<h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><p>前往 <a href="https://www.docker.com/">Docker 官网</a> 下载 Docker Desktop，支持 Mac &#x2F; Windows &#x2F; Linux。</p>
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 拉取镜像</span></span><br><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看本地镜像</span></span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -d -p 8080:80 --name my-nginx nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看运行中的容器</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止/删除容器</span></span><br><span class="line">docker stop my-nginx</span><br><span class="line">docker <span class="built_in">rm</span> my-nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="编写-Dockerfile"><a href="#编写-Dockerfile" class="headerlink" title="编写 Dockerfile"></a>编写 Dockerfile</h2><p>以一个 Node.js 应用为例：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">18</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制依赖文件（利用层缓存）</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install --registry https://registry.npmmirror.com</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制源代码</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>构建并运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 构建镜像</span></span><br><span class="line">docker build -t my-app:1.0 .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -d -p 3000:3000 my-app:1.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p>多个服务协作时，用 <code>docker-compose.yml</code> 管理：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DATABASE_URL=mongodb://db:27017/mydb</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo:6</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo-data:/data/db</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">mongo-data:</span></span><br></pre></td></tr></table></figure>
+
+<p>一键启动所有服务：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol>
+<li><strong>使用 <code>.dockerignore</code></strong> 排除 <code>node_modules</code>、<code>.git</code> 等目录</li>
+<li><strong>利用层缓存</strong>：把不常变的指令放在前面（如安装依赖）</li>
+<li><strong>使用具体版本标签</strong>：<code>node:18-alpine</code> 而不是 <code>node:latest</code></li>
+<li><strong>多阶段构建</strong>：减小生产镜像体积</li>
+</ol>
+<hr>
+<p>Docker 学习曲线不陡，但改变开发方式的效果是显著的。从现在开始容器化你的项目吧！</p>
+]]></content>
       <categories>
-          
-          <category> 随笔 </category>
-          
+        <category>后端</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 记录 </tag>
-            
-            <tag> 开始 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>博客搭建完成，正式开始写作之旅！</title>
-      <link href="/blog/2026/03/26/hello-blog/"/>
-      <url>/blog/2026/03/26/hello-blog/</url>
-      
-        <content type="html"><![CDATA[<p>经过一番折腾，博客终于搭好了！这里简单记录一下搭建过程和后续的写作计划。</p><span id="more"></span><h2 id="为什么要写博客？"><a href="#为什么要写博客？" class="headerlink" title="为什么要写博客？"></a>为什么要写博客？</h2><p>费曼学习法告诉我们：<strong>真正理解一件事，就是能把它讲清楚给别人听</strong>。</p><p>写博客是一种对自己输出的强制。当你试图把一个技术点写成文章时，你会发现很多”以为自己懂了”的地方其实并不清楚。这种压力反而是最好的学习动力。</p><h2 id="博客技术栈"><a href="#博客技术栈" class="headerlink" title="博客技术栈"></a>博客技术栈</h2><ul><li><strong>框架</strong>：Hexo 5.x</li><li><strong>主题</strong>：Butterfly</li><li><strong>部署</strong>：Vercel</li><li><strong>写作</strong>：Markdown</li></ul><h2 id="后续写作计划"><a href="#后续写作计划" class="headerlink" title="后续写作计划"></a>后续写作计划</h2><ol><li>编程语言系列：JavaScript、Python 深入笔记</li><li>工具使用：Git、Docker、Vim 技巧</li><li>算法与数据结构：LeetCode 解题思路</li><li>项目实战：记录开发过程中的设计决策</li></ol><blockquote><p>希望三年后回头看，这里有一个清晰的成长轨迹。</p></blockquote><hr><p>开始写作吧！ 🚀</p>]]></content>
-      
-      
+      <tags>
+        <tag>Docker</tag>
+        <tag>容器化</tag>
+        <tag>DevOps</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客搭建完成，正式开始写作之旅！</title>
+    <url>/blog/2026/03/26/hello-blog/</url>
+    <content><![CDATA[<p>经过一番折腾，博客终于搭好了！这里简单记录一下搭建过程和后续的写作计划。</p>
+<span id="more"></span>
+
+<h2 id="为什么要写博客？"><a href="#为什么要写博客？" class="headerlink" title="为什么要写博客？"></a>为什么要写博客？</h2><p>费曼学习法告诉我们：<strong>真正理解一件事，就是能把它讲清楚给别人听</strong>。</p>
+<p>写博客是一种对自己输出的强制。当你试图把一个技术点写成文章时，你会发现很多”以为自己懂了”的地方其实并不清楚。这种压力反而是最好的学习动力。</p>
+<h2 id="博客技术栈"><a href="#博客技术栈" class="headerlink" title="博客技术栈"></a>博客技术栈</h2><ul>
+<li><strong>框架</strong>：Hexo 5.x</li>
+<li><strong>主题</strong>：Butterfly</li>
+<li><strong>部署</strong>：Vercel</li>
+<li><strong>写作</strong>：Markdown</li>
+</ul>
+<h2 id="后续写作计划"><a href="#后续写作计划" class="headerlink" title="后续写作计划"></a>后续写作计划</h2><ol>
+<li>编程语言系列：JavaScript、Python 深入笔记</li>
+<li>工具使用：Git、Docker、Vim 技巧</li>
+<li>算法与数据结构：LeetCode 解题思路</li>
+<li>项目实战：记录开发过程中的设计决策</li>
+</ol>
+<blockquote>
+<p>希望三年后回头看，这里有一个清晰的成长轨迹。</p>
+</blockquote>
+<hr>
+<p>开始写作吧！ 🚀</p>
+]]></content>
       <categories>
-          
-          <category> 随笔 </category>
-          
+        <category>随笔</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> 博客 </tag>
-            
-            <tag> Hexo </tag>
-            
-            <tag> 记录 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Git 常用命令速查手册</title>
-      <link href="/blog/2026/03/20/git-cheatsheet/"/>
-      <url>/blog/2026/03/20/git-cheatsheet/</url>
-      
-        <content type="html"><![CDATA[<p>Git 是日常开发中最重要的工具之一。这篇文章整理了工作中最常用的 Git 命令，方便随时查阅。</p><span id="more"></span><h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户信息</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your@email.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><h2 id="仓库操作"><a href="#仓库操作" class="headerlink" title="仓库操作"></a>仓库操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化仓库</span></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆远程仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/user/repo.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆指定分支</span></span><br><span class="line">git <span class="built_in">clone</span> -b main https://github.com/user/repo.git</span><br></pre></td></tr></table></figure><h2 id="日常工作流"><a href="#日常工作流" class="headerlink" title="日常工作流"></a>日常工作流</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到暂存区</span></span><br><span class="line">git add .             <span class="comment"># 添加所有文件</span></span><br><span class="line">git add file.txt      <span class="comment"># 添加指定文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: add new feature&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送到远程</span></span><br><span class="line">git push origin main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取最新代码</span></span><br><span class="line">git pull origin main</span><br></pre></td></tr></table></figure><h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有分支</span></span><br><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建并切换分支</span></span><br><span class="line">git checkout -b feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换分支</span></span><br><span class="line">git checkout main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并分支</span></span><br><span class="line">git merge feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除分支</span></span><br><span class="line">git branch -d feature/new-feature</span><br></pre></td></tr></table></figure><h2 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 撤销工作区修改（未 add）</span></span><br><span class="line">git checkout -- file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销暂存区（已 add，未 commit）</span></span><br><span class="line">git reset HEAD file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销最近一次提交（保留修改）</span></span><br><span class="line">git reset --soft HEAD~1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看提交历史</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --graph</span><br></pre></td></tr></table></figure><h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 打标签</span></span><br><span class="line">git tag v1.0.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送标签</span></span><br><span class="line">git push origin v1.0.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除标签</span></span><br><span class="line">git tag -d v1.0.0</span><br></pre></td></tr></table></figure><h2 id="Commit-规范"><a href="#Commit-规范" class="headerlink" title="Commit 规范"></a>Commit 规范</h2><p>推荐使用 <a href="https://www.conventionalcommits.org/">Conventional Commits</a> 规范：</p><table><thead><tr><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><code>feat</code></td><td>新功能</td></tr><tr><td><code>fix</code></td><td>修复 bug</td></tr><tr><td><code>docs</code></td><td>文档变更</td></tr><tr><td><code>style</code></td><td>代码格式（不影响逻辑）</td></tr><tr><td><code>refactor</code></td><td>代码重构</td></tr><tr><td><code>test</code></td><td>添加测试</td></tr><tr><td><code>chore</code></td><td>构建&#x2F;工具变更</td></tr></tbody></table><hr><p>这些命令覆盖了 80% 的日常使用场景。遇到复杂情况，<code>git --help</code> 永远是你的朋友。</p>]]></content>
-      
-      
+      <tags>
+        <tag>博客</tag>
+        <tag>Hexo</tag>
+        <tag>记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 常用命令速查手册</title>
+    <url>/blog/2026/03/20/git-cheatsheet/</url>
+    <content><![CDATA[<p>Git 是日常开发中最重要的工具之一。这篇文章整理了工作中最常用的 Git 命令，方便随时查阅。</p>
+<span id="more"></span>
+
+<h2 id="基础配置"><a href="#基础配置" class="headerlink" title="基础配置"></a>基础配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 配置用户信息</span></span><br><span class="line">git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your@email.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置</span></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure>
+
+<h2 id="仓库操作"><a href="#仓库操作" class="headerlink" title="仓库操作"></a>仓库操作</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 初始化仓库</span></span><br><span class="line">git init</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆远程仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/user/repo.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 克隆指定分支</span></span><br><span class="line">git <span class="built_in">clone</span> -b main https://github.com/user/repo.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="日常工作流"><a href="#日常工作流" class="headerlink" title="日常工作流"></a>日常工作流</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">git status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加文件到暂存区</span></span><br><span class="line">git add .             <span class="comment"># 添加所有文件</span></span><br><span class="line">git add file.txt      <span class="comment"># 添加指定文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 提交</span></span><br><span class="line">git commit -m <span class="string">&quot;feat: add new feature&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送到远程</span></span><br><span class="line">git push origin main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取最新代码</span></span><br><span class="line">git pull origin main</span><br></pre></td></tr></table></figure>
+
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看所有分支</span></span><br><span class="line">git branch -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建并切换分支</span></span><br><span class="line">git checkout -b feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换分支</span></span><br><span class="line">git checkout main</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并分支</span></span><br><span class="line">git merge feature/new-feature</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除分支</span></span><br><span class="line">git branch -d feature/new-feature</span><br></pre></td></tr></table></figure>
+
+<h2 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 撤销工作区修改（未 add）</span></span><br><span class="line">git checkout -- file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销暂存区（已 add，未 commit）</span></span><br><span class="line">git reset HEAD file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 撤销最近一次提交（保留修改）</span></span><br><span class="line">git reset --soft HEAD~1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看提交历史</span></span><br><span class="line">git <span class="built_in">log</span> --oneline --graph</span><br></pre></td></tr></table></figure>
+
+<h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打标签</span></span><br><span class="line">git tag v1.0.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送标签</span></span><br><span class="line">git push origin v1.0.0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除标签</span></span><br><span class="line">git tag -d v1.0.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="Commit-规范"><a href="#Commit-规范" class="headerlink" title="Commit 规范"></a>Commit 规范</h2><p>推荐使用 <a href="https://www.conventionalcommits.org/">Conventional Commits</a> 规范：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>feat</code></td>
+<td>新功能</td>
+</tr>
+<tr>
+<td><code>fix</code></td>
+<td>修复 bug</td>
+</tr>
+<tr>
+<td><code>docs</code></td>
+<td>文档变更</td>
+</tr>
+<tr>
+<td><code>style</code></td>
+<td>代码格式（不影响逻辑）</td>
+</tr>
+<tr>
+<td><code>refactor</code></td>
+<td>代码重构</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td>添加测试</td>
+</tr>
+<tr>
+<td><code>chore</code></td>
+<td>构建&#x2F;工具变更</td>
+</tr>
+</tbody></table>
+<hr>
+<p>这些命令覆盖了 80% 的日常使用场景。遇到复杂情况，<code>git --help</code> 永远是你的朋友。</p>
+]]></content>
       <categories>
-          
-          <category> 工具 </category>
-          
+        <category>工具</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Git </tag>
-            
-            <tag> 工具 </tag>
-            
-            <tag> 版本控制 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>JavaScript 异步编程：从回调到 async/await</title>
-      <link href="/blog/2026/03/15/js-async-await/"/>
-      <url>/blog/2026/03/15/js-async-await/</url>
-      
-        <content type="html"><![CDATA[<p>JavaScript 的异步编程经历了从回调地狱到 Promise，再到 async&#x2F;await 的演进。本文梳理这三种方式的差异和适用场景。</p><span id="more"></span><h2 id="1-回调函数（Callback）"><a href="#1-回调函数（Callback）" class="headerlink" title="1. 回调函数（Callback）"></a>1. 回调函数（Callback）</h2><p>最早的异步处理方式，简单但容易导致”回调地狱”。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 示例：读取文件后处理数据</span></span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;data.json&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>, <span class="keyword">function</span>(<span class="params">err, data</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;读取失败:&#x27;</span>, err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">processData</span>(data, <span class="keyword">function</span>(<span class="params">result</span>) &#123;</span><br><span class="line">    <span class="title function_">saveResult</span>(result, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;保存失败:&#x27;</span>, err);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;完成！&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure><p><strong>问题</strong>：多层嵌套导致代码难以维护，错误处理分散。</p><h2 id="2-Promise"><a href="#2-Promise" class="headerlink" title="2. Promise"></a>2. Promise</h2><p>Promise 让异步代码可以链式调用，告别嵌套地狱。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/api/user&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">user</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户信息:&#x27;</span>, user);</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">fetch</span>(<span class="string">`/api/posts?userId=<span class="subst">$&#123;user.id&#125;</span>`</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">posts</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;文章列表:&#x27;</span>, posts);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;请求失败:&#x27;</span>, err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure><p><strong>Promise 状态</strong>：</p><ul><li><code>pending</code>：初始状态</li><li><code>fulfilled</code>：操作成功</li><li><code>rejected</code>：操作失败</li></ul><h3 id="常用-API"><a href="#常用-API" class="headerlink" title="常用 API"></a>常用 API</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 并发执行，全部成功才继续</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">fetch</span>(<span class="string">&#x27;/api/a&#x27;</span>), <span class="title function_">fetch</span>(<span class="string">&#x27;/api/b&#x27;</span>)])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">[resA, resB]</span>) =&gt;</span> &#123; <span class="comment">/* 全部完成 */</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发执行，取最快的结果</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">race</span>([<span class="title function_">fastRequest</span>(), <span class="title function_">slowRequest</span>()])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123; <span class="comment">/* 最先完成的结果 */</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发执行，全部结束（不论成败）</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">allSettled</span>([req1, req2])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">results</span> =&gt;</span> results.<span class="title function_">forEach</span>(<span class="function"><span class="params">r</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(r.<span class="property">status</span>)));</span><br></pre></td></tr></table></figure><h2 id="3-async-await"><a href="#3-async-await" class="headerlink" title="3. async &#x2F; await"></a>3. async &#x2F; await</h2><p>语法糖，让异步代码看起来像同步代码，可读性最佳。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loadUserPosts</span>(<span class="params">userId</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`/api/user/<span class="subst">$&#123;userId&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> postsRes = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`/api/posts?userId=<span class="subst">$&#123;user.id&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">const</span> posts = <span class="keyword">await</span> postsRes.<span class="title function_">json</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123; user, posts &#125;;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;加载失败:&#x27;</span>, err);</span><br><span class="line">    <span class="keyword">throw</span> err;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="keyword">const</span> &#123; user, posts &#125; = <span class="keyword">await</span> <span class="title function_">loadUserPosts</span>(<span class="number">123</span>);</span><br></pre></td></tr></table></figure><h3 id="并发陷阱"><a href="#并发陷阱" class="headerlink" title="并发陷阱"></a>并发陷阱</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ❌ 顺序执行，慢！</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">await</span> <span class="title function_">fetchA</span>(); <span class="comment">// 等 fetchA 完成</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="keyword">await</span> <span class="title function_">fetchB</span>(); <span class="comment">// 再等 fetchB 完成</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 并发执行，快！</span></span><br><span class="line"><span class="keyword">const</span> [a, b] = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">fetchA</span>(), <span class="title function_">fetchB</span>()]);</span><br></pre></td></tr></table></figure><h2 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h2><table><thead><tr><th>场景</th><th>推荐方式</th></tr></thead><tbody><tr><td>简单单次异步</td><td><code>async/await</code></td></tr><tr><td>链式操作</td><td><code>Promise.then</code> 或 <code>async/await</code></td></tr><tr><td>并发请求</td><td><code>Promise.all</code></td></tr><tr><td>旧代码 &#x2F; 回调库</td><td>封装成 Promise</td></tr></tbody></table><blockquote><p><strong>原则</strong>：始终使用 <code>async/await</code>，需要并发时配合 <code>Promise.all</code>。</p></blockquote><hr><p>掌握这三种模式，JavaScript 异步编程就没有什么难题了。</p>]]></content>
-      
-      
+      <tags>
+        <tag>Git</tag>
+        <tag>工具</tag>
+        <tag>版本控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript 异步编程：从回调到 async/await</title>
+    <url>/blog/2026/03/15/js-async-await/</url>
+    <content><![CDATA[<p>JavaScript 的异步编程经历了从回调地狱到 Promise，再到 async&#x2F;await 的演进。本文梳理这三种方式的差异和适用场景。</p>
+<span id="more"></span>
+
+<h2 id="1-回调函数（Callback）"><a href="#1-回调函数（Callback）" class="headerlink" title="1. 回调函数（Callback）"></a>1. 回调函数（Callback）</h2><p>最早的异步处理方式，简单但容易导致”回调地狱”。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 示例：读取文件后处理数据</span></span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;data.json&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>, <span class="keyword">function</span>(<span class="params">err, data</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;读取失败:&#x27;</span>, err);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">processData</span>(data, <span class="keyword">function</span>(<span class="params">result</span>) &#123;</span><br><span class="line">    <span class="title function_">saveResult</span>(result, <span class="keyword">function</span>(<span class="params">err</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;保存失败:&#x27;</span>, err);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;完成！&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>问题</strong>：多层嵌套导致代码难以维护，错误处理分散。</p>
+<h2 id="2-Promise"><a href="#2-Promise" class="headerlink" title="2. Promise"></a>2. Promise</h2><p>Promise 让异步代码可以链式调用，告别嵌套地狱。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="title function_">fetch</span>(<span class="string">&#x27;/api/user&#x27;</span>)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">user</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户信息:&#x27;</span>, user);</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">fetch</span>(<span class="string">`/api/posts?userId=<span class="subst">$&#123;user.id&#125;</span>`</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">response</span> =&gt;</span> response.<span class="title function_">json</span>())</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">posts</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;文章列表:&#x27;</span>, posts);</span><br><span class="line">  &#125;)</span><br><span class="line">  .<span class="title function_">catch</span>(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;请求失败:&#x27;</span>, err);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Promise 状态</strong>：</p>
+<ul>
+<li><code>pending</code>：初始状态</li>
+<li><code>fulfilled</code>：操作成功</li>
+<li><code>rejected</code>：操作失败</li>
+</ul>
+<h3 id="常用-API"><a href="#常用-API" class="headerlink" title="常用 API"></a>常用 API</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 并发执行，全部成功才继续</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">fetch</span>(<span class="string">&#x27;/api/a&#x27;</span>), <span class="title function_">fetch</span>(<span class="string">&#x27;/api/b&#x27;</span>)])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function">(<span class="params">[resA, resB]</span>) =&gt;</span> &#123; <span class="comment">/* 全部完成 */</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发执行，取最快的结果</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">race</span>([<span class="title function_">fastRequest</span>(), <span class="title function_">slowRequest</span>()])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">result</span> =&gt;</span> &#123; <span class="comment">/* 最先完成的结果 */</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 并发执行，全部结束（不论成败）</span></span><br><span class="line"><span class="title class_">Promise</span>.<span class="title function_">allSettled</span>([req1, req2])</span><br><span class="line">  .<span class="title function_">then</span>(<span class="function"><span class="params">results</span> =&gt;</span> results.<span class="title function_">forEach</span>(<span class="function"><span class="params">r</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(r.<span class="property">status</span>)));</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-async-await"><a href="#3-async-await" class="headerlink" title="3. async &#x2F; await"></a>3. async &#x2F; await</h2><p>语法糖，让异步代码看起来像同步代码，可读性最佳。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">loadUserPosts</span>(<span class="params">userId</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`/api/user/<span class="subst">$&#123;userId&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">const</span> user = <span class="keyword">await</span> response.<span class="title function_">json</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> postsRes = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">`/api/posts?userId=<span class="subst">$&#123;user.id&#125;</span>`</span>);</span><br><span class="line">    <span class="keyword">const</span> posts = <span class="keyword">await</span> postsRes.<span class="title function_">json</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123; user, posts &#125;;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;加载失败:&#x27;</span>, err);</span><br><span class="line">    <span class="keyword">throw</span> err;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用</span></span><br><span class="line"><span class="keyword">const</span> &#123; user, posts &#125; = <span class="keyword">await</span> <span class="title function_">loadUserPosts</span>(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="并发陷阱"><a href="#并发陷阱" class="headerlink" title="并发陷阱"></a>并发陷阱</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// ❌ 顺序执行，慢！</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">await</span> <span class="title function_">fetchA</span>(); <span class="comment">// 等 fetchA 完成</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="keyword">await</span> <span class="title function_">fetchB</span>(); <span class="comment">// 再等 fetchB 完成</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ✅ 并发执行，快！</span></span><br><span class="line"><span class="keyword">const</span> [a, b] = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>([<span class="title function_">fetchA</span>(), <span class="title function_">fetchB</span>()]);</span><br></pre></td></tr></table></figure>
+
+<h2 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a>选择建议</h2><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>简单单次异步</td>
+<td><code>async/await</code></td>
+</tr>
+<tr>
+<td>链式操作</td>
+<td><code>Promise.then</code> 或 <code>async/await</code></td>
+</tr>
+<tr>
+<td>并发请求</td>
+<td><code>Promise.all</code></td>
+</tr>
+<tr>
+<td>旧代码 &#x2F; 回调库</td>
+<td>封装成 Promise</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>原则</strong>：始终使用 <code>async/await</code>，需要并发时配合 <code>Promise.all</code>。</p>
+</blockquote>
+<hr>
+<p>掌握这三种模式，JavaScript 异步编程就没有什么难题了。</p>
+]]></content>
       <categories>
-          
-          <category> 前端 </category>
-          
+        <category>前端</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> JavaScript </tag>
-            
-            <tag> 异步编程 </tag>
-            
-            <tag> Promise </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Docker 入门：用容器化思维开发应用</title>
-      <link href="/blog/2026/03/10/docker-intro/"/>
-      <url>/blog/2026/03/10/docker-intro/</url>
-      
-        <content type="html"><![CDATA[<p>“在我机器上能跑啊”——这句话让多少团队抓狂。Docker 的出现就是为了彻底解决这个问题。</p><span id="more"></span><h2 id="Docker-是什么？"><a href="#Docker-是什么？" class="headerlink" title="Docker 是什么？"></a>Docker 是什么？</h2><p>Docker 是一个容器化平台，它将应用及其所有依赖打包成一个<strong>镜像（Image）</strong>，然后在任何地方以<strong>容器（Container）</strong>的形式运行，保证环境完全一致。</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">你的代码 + 运行环境 + 依赖 = Docker 镜像</span><br><span class="line">镜像运行起来 = 容器</span><br></pre></td></tr></table></figure><h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><table><thead><tr><th>概念</th><th>说明</th></tr></thead><tbody><tr><td><strong>Image</strong></td><td>只读模板，包含运行应用所需的一切</td></tr><tr><td><strong>Container</strong></td><td>Image 的运行实例</td></tr><tr><td><strong>Dockerfile</strong></td><td>构建 Image 的脚本</td></tr><tr><td><strong>Registry</strong></td><td>存储 Image 的仓库（如 Docker Hub）</td></tr></tbody></table><h2 id="安装-Docker"><a href="#安装-Docker" class="headerlink" title="安装 Docker"></a>安装 Docker</h2><p>前往 <a href="https://www.docker.com/">Docker 官网</a> 下载 Docker Desktop，支持 Mac &#x2F; Windows &#x2F; Linux。</p><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 拉取镜像</span></span><br><span class="line">docker pull nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看本地镜像</span></span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -d -p 8080:80 --name my-nginx nginx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看运行中的容器</span></span><br><span class="line">docker ps</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止/删除容器</span></span><br><span class="line">docker stop my-nginx</span><br><span class="line">docker <span class="built_in">rm</span> my-nginx</span><br></pre></td></tr></table></figure><h2 id="编写-Dockerfile"><a href="#编写-Dockerfile" class="headerlink" title="编写 Dockerfile"></a>编写 Dockerfile</h2><p>以一个 Node.js 应用为例：</p><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> node:<span class="number">18</span>-alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="language-bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制依赖文件（利用层缓存）</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> package*.json ./</span></span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> npm install --registry https://registry.npmmirror.com</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 复制源代码</span></span><br><span class="line"><span class="keyword">COPY</span><span class="language-bash"> . .</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 暴露端口</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">3000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动命令</span></span><br><span class="line"><span class="keyword">CMD</span><span class="language-bash"> [<span class="string">&quot;node&quot;</span>, <span class="string">&quot;server.js&quot;</span>]</span></span><br></pre></td></tr></table></figure><p>构建并运行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 构建镜像</span></span><br><span class="line">docker build -t my-app:1.0 .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行容器</span></span><br><span class="line">docker run -d -p 3000:3000 my-app:1.0</span><br></pre></td></tr></table></figure><h2 id="Docker-Compose"><a href="#Docker-Compose" class="headerlink" title="Docker Compose"></a>Docker Compose</h2><p>多个服务协作时，用 <code>docker-compose.yml</code> 管理：</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3.8&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">app:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;3000:3000&quot;</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DATABASE_URL=mongodb://db:27017/mydb</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo:6</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo-data:/data/db</span></span><br><span class="line"></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line">  <span class="attr">mongo-data:</span></span><br></pre></td></tr></table></figure><p>一键启动所有服务：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ol><li><strong>使用 <code>.dockerignore</code></strong> 排除 <code>node_modules</code>、<code>.git</code> 等目录</li><li><strong>利用层缓存</strong>：把不常变的指令放在前面（如安装依赖）</li><li><strong>使用具体版本标签</strong>：<code>node:18-alpine</code> 而不是 <code>node:latest</code></li><li><strong>多阶段构建</strong>：减小生产镜像体积</li></ol><hr><p>Docker 学习曲线不陡，但改变开发方式的效果是显著的。从现在开始容器化你的项目吧！</p>]]></content>
-      
-      
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>异步编程</tag>
+        <tag>Promise</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我与 WorkBuddy 的那些事：一次真实的 AI 助手体验记录</title>
+    <url>/blog/2026/03/29/workbuddy-experience/</url>
+    <content><![CDATA[<p>最近一段时间，我把 WorkBuddy 当成了”主力搭档”——搭博客、跑数据分析、处理各种杂活。用下来有几点感触，记录一下。</p>
+<!-- more -->
+
+<h2 id="一、操作严谨，安全与便捷兼顾"><a href="#一、操作严谨，安全与便捷兼顾" class="headerlink" title="一、操作严谨，安全与便捷兼顾"></a>一、操作严谨，安全与便捷兼顾</h2><p>说实话，在接触 WorkBuddy 之前，我对 AI 工具”自动帮我操作”这件事是有些顾虑的：它会不会乱动我的文件？会不会哪天悄悄给我发出去一封邮件、推了个奇怪的提交？</p>
+<p>实际用下来，这个顾虑基本消除了。</p>
+<p>以搭建这个博客为例——我只是跟它说清楚了需求（Hexo + Butterfly 主题、部署到 GitHub Pages、国内不需要代理也能访问），它就把整个流程拆解好，一步步推进：初始化项目、写配置、生成文章模板、构建、部署……中间绝大多数环节它都自己搞定了，我不需要手动执行一大堆命令。</p>
+<p>但碰到 GitHub 账号登录、涉及外部写入的操作，它不会偷偷摸摸就执行，而是<strong>主动弹出提示让我确认</strong>，或者给出步骤引导我自己来。这个边界感拿捏得挺准——该自动的自动，该确认的绝不越权。</p>
+<p>对于我这种”希望省事，但不希望失控”的用户来说，这个平衡做得刚好。</p>
+<hr>
+<h2 id="二、容错率高，支持渐进式打磨"><a href="#二、容错率高，支持渐进式打磨" class="headerlink" title="二、容错率高，支持渐进式打磨"></a>二、容错率高，支持渐进式打磨</h2><p>实际开发中，翻车是家常便饭。在和 WorkBuddy 协作期间，也遇到过几次报错和任务中断——比如 CDN 配置错了导致页面全裸奔、首页背景图没展示出来之类的问题。</p>
+<p>让我印象深的是它<strong>处理问题的方式</strong>：不是直接懵掉，也不是甩给你一个错误日志然后不管了，而是主动排查、定位原因、给出修复方案，必要时提供备选方案跟我商量。</p>
+<p>另一个我很喜欢的细节是：<strong>每完成一个阶段，它都会给你本地预览</strong>，让你自己看效果，再决定要不要继续推进或者调整。这很符合实际工作节奏——你不需要一开始把所有需求想清楚，可以先跑起来，看看效果，再慢慢打磨。</p>
+<p>比如这次博客首页的顶部背景图，我们来回改了好几轮：从纯色，到深色调 SVG 插画，再到我说”颜色太暗了”，它立刻换成了奶油白暖色系……整个过程就是自然的对话和迭代，没有什么摩擦感。</p>
+<hr>
+<h2 id="三、数据分析准确可靠，实用性强"><a href="#三、数据分析准确可靠，实用性强" class="headerlink" title="三、数据分析准确可靠，实用性强"></a>三、数据分析准确可靠，实用性强</h2><p>这个体验来自一个工作场景。我特意试了 WorkBuddy 的**”数据分析”专家模式**，把一份没有经过任何预处理的原始业务数据丢给它，让它帮我跑分析、出报告。</p>
+<p>结果出乎意料地扎实：</p>
+<ul>
+<li>多维度交叉统计，数字核对了几遍，基本精准</li>
+<li>不只是出表，还有结论性分析，指出了几个我自己没注意到的数据异常点</li>
+<li>最终输出的分析报告格式完整，逻辑清晰，直接可以用来做内部汇报</li>
+</ul>
+<p>当然，用 AI 做数据分析，”基本精准”和”完全精准”之间还是有一道坎，关键数字用之前建议自己核验一遍。但就辅助分析、快速出洞察这个场景来说，效率的提升是真实的。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>用了这段时间，我对 WorkBuddy 的定位越来越清晰——它不是一个”输入问题、输出答案”的查询工具，更像是一个<strong>能真正执行任务的协作伙伴</strong>：你告诉它目标，它帮你推进、排坑、迭代，遇到需要你拍板的地方再来问你。</p>
+<p>对我来说，这种工作方式比”我来写、AI 来审”或者”AI 来写、我来改”都更高效——它就是在陪我一起做事。</p>
+<p>如果你还没试过，可以从一个具体的小任务开始，感受一下。</p>
+<hr>
+<p><em>本博客本身，就是和 WorkBuddy 一起搭的。</em></p>
+]]></content>
       <categories>
-          
-          <category> 后端 </category>
-          
+        <category>工具体验</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Docker </tag>
-            
-            <tag> 容器化 </tag>
-            
-            <tag> DevOps </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
+      <tags>
+        <tag>AI工具</tag>
+        <tag>WorkBuddy</tag>
+        <tag>效率提升</tag>
+        <tag>个人博客</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇正式文章</title>
+    <url>/blog/2026/03/26/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E6%AD%A3%E5%BC%8F%E6%96%87%E7%AB%A0/</url>
+    <content><![CDATA[<p>这是我的博客的第一篇正式文章。从这里开始，我会记录学习、工作和生活中的点滴。</p>
+<span id="more"></span>
+
+<h2 id="为什么开始写作？"><a href="#为什么开始写作？" class="headerlink" title="为什么开始写作？"></a>为什么开始写作？</h2><p>写作是一种思考的方式。通过文字，我可以：</p>
+<ul>
+<li><strong>整理思路</strong>：把零散的知识点串联起来</li>
+<li><strong>加深理解</strong>：教会别人是最好的学习方式</li>
+<li><strong>记录成长</strong>：回头看时，能看到自己的进步轨迹</li>
+</ul>
+<h2 id="会写什么内容？"><a href="#会写什么内容？" class="headerlink" title="会写什么内容？"></a>会写什么内容？</h2><p>这个博客是综合型的，内容不限于：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>技术笔记</td>
+<td>编程语言、框架、工具使用</td>
+</tr>
+<tr>
+<td>学习心得</td>
+<td>读书笔记、课程总结</td>
+</tr>
+<tr>
+<td>生活随笔</td>
+<td>旅行、思考、日常记录</td>
+</tr>
+<tr>
+<td>项目记录</td>
+<td>开发过程中的问题和解决方案</td>
+</tr>
+</tbody></table>
+<h2 id="写作计划"><a href="#写作计划" class="headerlink" title="写作计划"></a>写作计划</h2><ol>
+<li>每周至少更新一篇文章</li>
+<li>保持简洁清晰的表达</li>
+<li>注重实用性，解决实际问题</li>
+</ol>
+<hr>
+<blockquote>
+<p>千里之行，始于足下。</p>
+</blockquote>
+<p>感谢你的阅读，期待在文字中与你相遇。</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>记录</tag>
+        <tag>开始</tag>
+      </tags>
+  </entry>
 </search>
