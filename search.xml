@@ -67,41 +67,6 @@
       </tags>
   </entry>
   <entry>
-    <title>博客搭建完成，正式开始写作之旅！</title>
-    <url>/blog/2026/03/26/hello-blog/</url>
-    <content><![CDATA[<p>经过一番折腾，博客终于搭好了！这里简单记录一下搭建过程和后续的写作计划。</p>
-<span id="more"></span>
-
-<h2 id="为什么要写博客？"><a href="#为什么要写博客？" class="headerlink" title="为什么要写博客？"></a>为什么要写博客？</h2><p>费曼学习法告诉我们：<strong>真正理解一件事，就是能把它讲清楚给别人听</strong>。</p>
-<p>写博客是一种对自己输出的强制。当你试图把一个技术点写成文章时，你会发现很多”以为自己懂了”的地方其实并不清楚。这种压力反而是最好的学习动力。</p>
-<h2 id="博客技术栈"><a href="#博客技术栈" class="headerlink" title="博客技术栈"></a>博客技术栈</h2><ul>
-<li><strong>框架</strong>：Hexo 5.x</li>
-<li><strong>主题</strong>：Butterfly</li>
-<li><strong>部署</strong>：Vercel</li>
-<li><strong>写作</strong>：Markdown</li>
-</ul>
-<h2 id="后续写作计划"><a href="#后续写作计划" class="headerlink" title="后续写作计划"></a>后续写作计划</h2><ol>
-<li>编程语言系列：JavaScript、Python 深入笔记</li>
-<li>工具使用：Git、Docker、Vim 技巧</li>
-<li>算法与数据结构：LeetCode 解题思路</li>
-<li>项目实战：记录开发过程中的设计决策</li>
-</ol>
-<blockquote>
-<p>希望三年后回头看，这里有一个清晰的成长轨迹。</p>
-</blockquote>
-<hr>
-<p>开始写作吧！ 🚀</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>博客</tag>
-        <tag>Hexo</tag>
-        <tag>记录</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git 常用命令速查手册</title>
     <url>/blog/2026/03/20/git-cheatsheet/</url>
     <content><![CDATA[<p>Git 是日常开发中最重要的工具之一。这篇文章整理了工作中最常用的 Git 命令，方便随时查阅。</p>
@@ -166,6 +131,41 @@
         <tag>Git</tag>
         <tag>工具</tag>
         <tag>版本控制</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>博客搭建完成，正式开始写作之旅！</title>
+    <url>/blog/2026/03/26/hello-blog/</url>
+    <content><![CDATA[<p>经过一番折腾，博客终于搭好了！这里简单记录一下搭建过程和后续的写作计划。</p>
+<span id="more"></span>
+
+<h2 id="为什么要写博客？"><a href="#为什么要写博客？" class="headerlink" title="为什么要写博客？"></a>为什么要写博客？</h2><p>费曼学习法告诉我们：<strong>真正理解一件事，就是能把它讲清楚给别人听</strong>。</p>
+<p>写博客是一种对自己输出的强制。当你试图把一个技术点写成文章时，你会发现很多”以为自己懂了”的地方其实并不清楚。这种压力反而是最好的学习动力。</p>
+<h2 id="博客技术栈"><a href="#博客技术栈" class="headerlink" title="博客技术栈"></a>博客技术栈</h2><ul>
+<li><strong>框架</strong>：Hexo 5.x</li>
+<li><strong>主题</strong>：Butterfly</li>
+<li><strong>部署</strong>：Vercel</li>
+<li><strong>写作</strong>：Markdown</li>
+</ul>
+<h2 id="后续写作计划"><a href="#后续写作计划" class="headerlink" title="后续写作计划"></a>后续写作计划</h2><ol>
+<li>编程语言系列：JavaScript、Python 深入笔记</li>
+<li>工具使用：Git、Docker、Vim 技巧</li>
+<li>算法与数据结构：LeetCode 解题思路</li>
+<li>项目实战：记录开发过程中的设计决策</li>
+</ol>
+<blockquote>
+<p>希望三年后回头看，这里有一个清晰的成长轨迹。</p>
+</blockquote>
+<hr>
+<p>开始写作吧！ 🚀</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>博客</tag>
+        <tag>Hexo</tag>
+        <tag>记录</tag>
       </tags>
   </entry>
   <entry>
